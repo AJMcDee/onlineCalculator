@@ -56,18 +56,18 @@ body {
     font-size: large;
 }
 
-.container button:hover {
-    background-color: #BFA4A4;
+button:hover {
+    background-color: #BFA4A4 !important;
     color: #0D324D;
 }
 
-.container button:active {
-    background-color: #AF9797;
+button:active {
+    background-color: #AF9797 !important;
     box-shadow: 2px 2px #7C6B6B;
     transform: translateY(2px);
   }
 
-.container button:focus:not(.focus-visible) {
+button:focus:not(.focus-visible) {
     outline: none;
   }
 
