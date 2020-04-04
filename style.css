@@ -1,0 +1,172 @@
+/*
+Colour palette:
+    Dark grey: #424B54
+    Silver: #BFC3BA
+    Pale gold: #DFBE99
+    Blue: #0D324D
+        slightly lighter: #134B72
+    
+    Dusky pink: #BFA4A4
+        slightly darker: #AF9797;
+        grey version: #7C6B6B;
+*/
+
+body {
+    background-color: #DFBE99;
+}
+
+#container {
+    width: 30%;
+    max-width: 500px;
+    min-width: 200px;
+    height: 70%;
+    max-height: 800px;
+    min-height: 420px;
+    padding: 10px;
+    margin: 100px;
+    background-color: #BFC3BA;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 25% repeat(4, 1fr);
+    border: 3px solid black;
+    border-radius: 5px;
+
+    grid-template-areas: 
+        "display display display display display"
+        "seven eight nine plus backspace"
+        "four five six minus backspace"
+        "one two three multiply clear"
+        "dot zero equals divide clear";
+
+    }
+
+/* Button properties */
+
+
+.container button {
+    background-color: #0D324D;
+    color: #DFBE99;
+    border: solid 4px #424B54;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
+    width: 80%;
+    height: 80%;
+    font-size: large;
+}
+
+.container button:hover {
+    background-color: #BFA4A4;
+    color: #0D324D;
+}
+
+.container button:active {
+    background-color: #AF9797;
+    box-shadow: 2px 2px #7C6B6B;
+    transform: translateY(2px);
+  }
+
+.container button:focus:not(.focus-visible) {
+    outline: none;
+  }
+
+
+/* Display field */
+
+.display {
+
+    grid-area: display;
+    background-color: #BFA4A4;
+    text-align: right;
+    font-size: 50px;
+    color: #0D324D;
+    min-height: 90px;
+
+    border: solid 4px #424B54;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
+}
+
+#calculations {
+    padding: 10px;
+}
+
+#stored {
+    font-size: 20px;
+    text-align: left;
+    padding: 10px;
+}
+
+
+/* Specific button styling where necessary */
+
+#one {
+    grid-area: one;
+}
+#two {
+    grid-area: two;
+}
+#three {
+    grid-area: three;
+}
+#four {
+    grid-area: four;
+}
+#five {
+    grid-area: five;
+}
+#six {
+    grid-area: six;
+}
+#seven {
+    grid-area: seven;
+}
+#eight {
+    grid-area: eight;
+}
+
+#nine {
+    grid-area: nine;
+}
+#dot {
+    grid-area: dot;
+}
+#zero {
+    grid-area: zero;
+}
+#equals {
+    grid-area: equals;
+}
+#plus {
+    grid-area: plus;
+}
+#minus {
+    grid-area: minus;
+}
+#multiply {
+    grid-area: multiply;
+}
+#divide {
+    grid-area: divide;
+}
+
+#clear {
+    grid-area: clear;
+    align-self: stretch;
+}
+
+#clear button{
+    height: 90%;
+    background-color: #134970;
+}
+
+#backspace {
+    grid-area: backspace;
+}
+
+#backspace button{
+    height: 90%;
+    background-color: #134970;
+}

@@ -33,9 +33,9 @@ function operate(op,a,b) {
     console.log(result)
 }
 
-let a = Number(prompt("Enter a number"))
-let b = Number(prompt("Enter another number"))
-let op = prompt("Enter an operator")
+// let a = Number(prompt("Enter a number"))
+// let b = Number(prompt("Enter another number"))
+// let op = prompt("Enter an operator")
 
-operate(op,a,b);
+// operate(op,a,b);
 
