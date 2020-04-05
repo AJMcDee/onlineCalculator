@@ -19,20 +19,6 @@ function divide(a,b) {
     return a / b;
 }
 
-function operate(op,a,b) {
-    let result
-    if (op === "plus") {
-        result = add(a,b)
-    } else if (op === "subtract") {
-        result = subtract(a,b)
-    } else if (op === "multiply") {
-        result = multiply(a,b)
-    } else if (op === "divide") {
-        result = divide(a,b)
-    } 
-    console.log(result)
-}
-
 function buttonValue(target) {
     switch (target) {
         case 'one':
@@ -67,25 +53,85 @@ function buttonValue(target) {
             return '/'
     }
 }
+let smallDisplay = document.querySelector("#stored")
 let bigDisplay = document.querySelector("#calculations")
 let buttons = document.querySelectorAll("button")
-let totalCalculation
+let totalCalculation = "";
 
 buttons.forEach((button) =>
     button.addEventListener('click', () => {
         let targetID = button.parentElement.id;
         if (targetID === "clear") {
+            totalCalculation = "";
+            smallDisplay.textContent = "";
             bigDisplay.textContent = "";
         } else if (targetID === "backspace") {
+            totalCalculation = bigDisplay.textContent.slice(0,-1)
             bigDisplay.textContent = bigDisplay.textContent.slice(0,-1);
         } else if (targetID === "equals") {
-            finalCalc();
+            shiftdisplay();
+            bigDisplay.textContent = `${finalCalc(totalCalculation)}`;
         } else {
-            totalCalculation += `${buttonValue(targetID)}`
-            bigDisplay.textContent += `${buttonValue(targetID)}`;
+            if (typeof buttonValue(targetID) === "string" && buttonValue(targetID) != '.') {
+                totalCalculation += `,${buttonValue(targetID)},`
+                bigDisplay.textContent += ` ${buttonValue(targetID)} `
+            } else {
+                totalCalculation += `${buttonValue(targetID)}`
+                bigDisplay.textContent += `${buttonValue(targetID)}`;
+            }
         }
     })
 );
+
+function shiftdisplay() {
+    smallDisplay.textContent = bigDisplay.textContent;
+    bigDisplay.textContent = "";
+}
+
+function finalCalc(string) {
+    let calcArray = string.split(",");
+    
+    ///Executing multiply and divide first
+    for (let x = 0; x < calcArray.length; x++) {
+        let replacedItems;
+        let preInd = x - 1;
+        let postInd = x + 1;
+        if (calcArray[x] == "*") {
+            replacedItems = parseFloat(multiply(calcArray[preInd], calcArray[postInd]));
+            calcArray.splice(preInd, 3, replacedItems);
+            x = 0
+        } else if (calcArray[x] == "/") {
+            replacedItems = parseFloat(divide(calcArray[preInd], calcArray[postInd]))
+            calcArray.splice(preInd, 3, replacedItems);
+            x = 0
+        }        
+    }
+
+    ///Convert remaining items to numbers
+    for (let x = 0; x < calcArray.length; x++) {
+        if (calcArray[x] === "+" || calcArray[x] === "-") {
+            continue
+        } else {
+            calcArray[x] = parseFloat(calcArray[x])
+        };
+    }
+    
+    ///Run the remaining calculatiom
+    for (let x = 0; x < calcArray.length; x++) {
+        let replacedItems;
+        let preInd = x - 1;
+        let postInd = x + 1;
+        if (calcArray[x] == "+") {
+            replacedItems = add(calcArray[preInd], calcArray[postInd]);
+            calcArray.splice(preInd, 3, replacedItems);
+        } else if (calcArray[x] == "-") {
+            replacedItems = subtract(calcArray[preInd], calcArray[postInd])
+            calcArray.splice(preInd, 3, replacedItems);
+        }        
+    }
+    console.log(calcArray)
+    return calcArray
+}
 
 // let a = Number(prompt("Enter a number"))
 // let b = Number(prompt("Enter another number"))
