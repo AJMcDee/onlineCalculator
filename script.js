@@ -143,9 +143,11 @@ function finalCalc(string) {
         if (calcArray[x] == "+") {
             replacedItems = add(calcArray[preInd], calcArray[postInd]);
             calcArray.splice(preInd, 3, replacedItems);
+		x = 0;
         } else if (calcArray[x] == "-") {
             replacedItems = subtract(calcArray[preInd], calcArray[postInd])
             calcArray.splice(preInd, 3, replacedItems);
+		x = 0;
         }        
     }
     console.log(calcArray)
