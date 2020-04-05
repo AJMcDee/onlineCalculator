@@ -76,20 +76,21 @@ buttons.forEach((button) =>
         } else if (targetID === "equals") {
             shiftdisplay();
             let result = finalCalc(totalCalculation)
-            result = parseFloat(result).toFixed(5);
+            result = parseFloat(result);
+            (result % 1 == 0) ? result = parseInt(result) : result.toFixed(10); 
             bigDisplay.textContent = `${result}`;
             totalCalculation = finalCalc(totalCalculation);
             dotButton.disabled = false;
         } else if (buttonValue(targetID) === ".") {
             totalCalculation += `${buttonValue(targetID)}`
             bigDisplay.textContent += `${buttonValue(targetID)}`;
-            dotButton.disabled = true;
+            dotButton.disabled = true; ///Disables double-entry of dots until backspaced, entered, or operated on
         } else {
             if (typeof buttonValue(targetID) === "string" && buttonValue(targetID) != '.') {
                 totalCalculation += `,${buttonValue(targetID)},`
                 bigDisplay.textContent += ` ${buttonValue(targetID)} `
                 dotButton.disabled = false;
-            } else {
+            } else {                    ///Number buttons 
                 totalCalculation += `${buttonValue(targetID)}`
                 bigDisplay.textContent += `${buttonValue(targetID)}`;
             }
@@ -115,6 +116,10 @@ function finalCalc(string) {
             calcArray.splice(preInd, 3, replacedItems);
             x = 0
         } else if (calcArray[x] == "/") {
+            if (calcArray[postInd] == 0) { 
+                bigDisplay.textContent = `Nice try!`
+                break
+            }
             replacedItems = parseFloat(divide(calcArray[preInd], calcArray[postInd]))
             calcArray.splice(preInd, 3, replacedItems);
             x = 0
