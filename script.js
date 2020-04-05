@@ -71,6 +71,7 @@ buttons.forEach((button) =>
         } else if (targetID === "equals") {
             shiftdisplay();
             bigDisplay.textContent = `${finalCalc(totalCalculation)}`;
+            totalCalculation = finalCalc(totalCalculation);
         } else {
             if (typeof buttonValue(targetID) === "string" && buttonValue(targetID) != '.') {
                 totalCalculation += `,${buttonValue(targetID)},`
