@@ -87,6 +87,10 @@ button:focus:not(.focus-visible) {
     border-radius: 5px;
     padding: 3px;
     margin: 3px;
+
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #calculations {

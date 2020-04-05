@@ -56,6 +56,7 @@ function buttonValue(target) {
 let smallDisplay = document.querySelector("#stored")
 let bigDisplay = document.querySelector("#calculations")
 let buttons = document.querySelectorAll("button")
+let dotButton = document.getElementById("dotbutton");
 let totalCalculation = "";
 
 buttons.forEach((button) =>
@@ -65,17 +66,29 @@ buttons.forEach((button) =>
             totalCalculation = "";
             smallDisplay.textContent = "";
             bigDisplay.textContent = "";
+            dotButton.disabled = false;
         } else if (targetID === "backspace") {
+            if (totalCalculation[totalCalculation.length - 1] === ".") {
+                dotButton.disabled = false;
+            }
             totalCalculation = bigDisplay.textContent.slice(0,-1)
             bigDisplay.textContent = bigDisplay.textContent.slice(0,-1);
         } else if (targetID === "equals") {
             shiftdisplay();
-            bigDisplay.textContent = `${finalCalc(totalCalculation)}`;
+            let result = finalCalc(totalCalculation)
+            result = parseFloat(result).toFixed(5);
+            bigDisplay.textContent = `${result}`;
             totalCalculation = finalCalc(totalCalculation);
+            dotButton.disabled = false;
+        } else if (buttonValue(targetID) === ".") {
+            totalCalculation += `${buttonValue(targetID)}`
+            bigDisplay.textContent += `${buttonValue(targetID)}`;
+            dotButton.disabled = true;
         } else {
             if (typeof buttonValue(targetID) === "string" && buttonValue(targetID) != '.') {
                 totalCalculation += `,${buttonValue(targetID)},`
                 bigDisplay.textContent += ` ${buttonValue(targetID)} `
+                dotButton.disabled = false;
             } else {
                 totalCalculation += `${buttonValue(targetID)}`
                 bigDisplay.textContent += `${buttonValue(targetID)}`;
